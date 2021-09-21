@@ -5,9 +5,11 @@
 	<head><title> SNAKE </title></head>
 	<body style = "background:rgb(20,20,20)">
 
-		<div style = "width:100%;text-align:center">
-			<canvas id = "sg" width = "500" height = "500"></canvas>
-		</div>
+		<h3 style="color:white; text-align:center">use WASD or ↑←↓→ to move the snake and P to pause and unpause</h3>
+
+	  <div style="width:500px; margin:auto; box-shadow:0px 0px 15px white">
+    <canvas id = "sg" width = "500" height = "500"></canvas>
+    </div>
 		
 		<script>
 			//Starting settings
@@ -53,6 +55,18 @@
 					}
 				}
 			}
+
+      function capple(apple){
+          apple.x = 25*Math.floor(Math.random()*20);
+					apple.y = 25*Math.floor(Math.random()*20);
+					while(collission(apple,snake,score)){
+						console.log("APPLE RELOCATED");
+						apple.x = 25*Math.floor(Math.random()*20);
+						apple.y = 25*Math.floor(Math.random()*20);
+					}
+      }
+
+      capple(apple);
 	
 			//Draw game
 			function system(){
@@ -79,13 +93,7 @@
 				//Check if snake ate the appple
 				if(snakeX ==  apple.x && snakeY ==  apple.y){
 					score++;
-					apple.x = 25*Math.floor(Math.random()*20);
-					apple.y = 25*Math.floor(Math.random()*20);
-					while(collission(apple,snake,score)){
-						console.log("APPLE RELOCATED");
-						apple.x = 25*Math.floor(Math.random()*20);
-						apple.y = 25*Math.floor(Math.random()*20);
-					}
+					capple(apple);
 				}else{
 					//Remove last snake's tail
 					snake.pop();
@@ -114,18 +122,34 @@
 				if(difficult == 0){
 					if(snakeX<0 || snakeY<0 || snakeX>475 || snakeY>475 || collission(newHead,snake,score)){
 						p = 2;
+            cc.fillStyle = "red";
+            cc.font = "bold 46px Arial";
+            cc.textAlign = 'center';
+            cc.fillText("Game Over", 250, 250);
+            cc.strokeStyle = "black";
+            cc.strokeText("Game Over", 250, 250);
+            cc.fillStyle = "red";
+            cc.font = "30px Arial";
+            cc.fillText("Press R to restart", 250, 280);
+            cc.strokeStyle = "black";
+            cc.strokeText("Press R to restart", 250, 280);
 						console.log("GAME OVER");
 						clearInterval(interval);
 					}
 				}else if(difficult == 1){
 					if(snakeX<0 || snakeY<0 || snakeX>475 || snakeY>475){
 						p = 2;
-						console.log("GAME OVER");
-						clearInterval(interval);
-					}
-				}else if(difficult == 2){
-					if(0){
-						p = 2;
+            cc.fillStyle = "red";
+            cc.font = "bold 46px Arial";
+            cc.textAlign = 'center';
+            cc.fillText("Game Over", 250, 250);
+            cc.strokeStyle = "black";
+            cc.strokeText("Game Over", 250, 250);
+            cc.fillStyle = "red";
+            cc.font = "30px Arial";
+            cc.fillText("Press R to restart", 250, 280);
+            cc.strokeStyle = "black";
+            cc.strokeText("Press R to restart", 250, 280);
 						console.log("GAME OVER");
 						clearInterval(interval);
 					}
@@ -140,24 +164,40 @@
 		
 				//Get arrows inputs
 				if(ev.type ==  "keydown" && !ev.repeat){
-					if((ev.keyCode ==  37 || ev.keyCode ==  65) && d != "RIGHT" && p!= 2){
+					if((ev.keyCode ==  37 || ev.keyCode ==  65) && d != "RIGHT" && p == 0){
 						console.log("LEFT");
 						d = "LEFT";
 					}
 		
-					if((ev.keyCode ==  38 || ev.keyCode ==  87) && d != "DOWN" && p!= 2){
+					if((ev.keyCode ==  38 || ev.keyCode ==  87) && d != "DOWN" && p == 0){
 						console.log("UP");
 						d = "UP";
 					}
 		
-					if((ev.keyCode ==  39 || ev.keyCode ==  68) && d!= "LEFT" && p!= 2){
+					if((ev.keyCode ==  39 || ev.keyCode ==  68) && d != "LEFT" && p == 0){
 						console.log("RIGHT");
 						d = "RIGHT";
 					}
 		
-					if((ev.keyCode ==  40 || ev.keyCode ==  83) && d!= "UP" && p!= 2){
+					if((ev.keyCode ==  40 || ev.keyCode ==  83) && d != "UP" && p == 0){
 						console.log("DOWN");
 						d = "DOWN";
+					}
+
+          if(ev.keyCode == 82 && p == 2){
+						console.log("reiniciado");
+						p = 0;
+            score = 0;
+            d = "";
+            snake = [];
+            
+            snake[0] = {
+              x:250,
+              y:250,
+            }
+
+            capple(apple);
+						interval = setInterval(update , 1000/v);
 					}
 			
 					if(ev.keyCode == 80 && p == 0){
@@ -175,6 +215,5 @@
 			}
 
 		</script>
-		
 	</body>
 </html>
