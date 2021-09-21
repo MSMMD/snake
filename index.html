@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+
+<html>
+	
+	<head><title> SNAKE </title></head>
+	<body style = "background:rgb(20,20,20)">
+
+		<div style = "width:100%;text-align:center">
+			<canvas id = "sg" width = "500" height = "500"></canvas>
+		</div>
+		
+		<script>
+			//Starting settings
+			canvas = document.getElementById("sg");
+			cc = canvas.getContext("2d");
+			let p = 0;
+			window.onkeydown = input;
+			var difficult = 0; // 0 = classic 1 = easy-(don't die by himself) 2 = zen-(don't die)
+			var v = 8 //change the snake's velocity
+			//update interval
+			var interval = setInterval(update , 1000/v);
+			
+			//Update frame
+			function update(){
+				if(p == 0){
+					system();
+				}
+			}
+		
+			//Snake array
+			let snake = [];
+			snake[0] = {
+				x:250,
+				y:250,
+			}
+		
+			//Snake direction
+			let d;
+		
+			//Random apple
+			let apple = {
+				x:25*Math.floor(Math.random()*20),
+				y:25*Math.floor(Math.random()*20)
+			}
+		
+			//snake lenght
+			let score = 0;
+		
+			function collission(head,array,score){
+				for(let i = 0; i<score; i++){
+					if(head.x == array[i].x && head.y == array[i].y){
+						return true;
+					}
+				}
+			}
+	
+			//Draw game
+			function system(){
+				//Background
+				cc.fillStyle = "black";
+				cc.fillRect(0,0,canvas.width,canvas.height);
+			
+				//Draw apple
+				cc.fillStyle = "red";
+				cc.fillRect(apple.x,apple.y,25,25);
+				
+				//Draw snake
+				for(let i = 0;i<score+1;i++){
+					cc.strokeStyle = "green";
+					cc.strokeRect(snake[i].x,snake[i].y,25,25);
+					cc.fillStyle = "lime";
+					cc.fillRect(snake[i].x,snake[i].y,25,25);
+				}
+			
+				//Take snake's head position
+				let snakeX = snake[0].x;
+				let snakeY = snake[0].y;
+				
+				//Check if snake ate the appple
+				if(snakeX ==  apple.x && snakeY ==  apple.y){
+					score++;
+					apple.x = 25*Math.floor(Math.random()*20);
+					apple.y = 25*Math.floor(Math.random()*20);
+					while(collission(apple,snake,score)){
+						console.log("APPLE RELOCATED");
+						apple.x = 25*Math.floor(Math.random()*20);
+						apple.y = 25*Math.floor(Math.random()*20);
+					}
+				}else{
+					//Remove last snake's tail
+					snake.pop();
+				}	
+		
+				//Move snake
+				if(d == "LEFT")snakeX -= 25;
+				if(d == "UP")snakeY -= 25;
+				if(d == "RIGHT")snakeX += 25;
+				if(d == "DOWN")snakeY += 25;
+			
+				if(difficult == 2){
+					if(snakeX<0) snakeX = 475;
+					if(snakeY<0) snakeY = 475;
+					if(snakeX>475) snakeX = 0;
+					if(snakeY>475) snakeY = 0;
+				}
+		
+				//Create new head to the snake
+				let newHead = {
+					x:snakeX,
+					y:snakeY
+				}	
+		
+				//Game over rules
+				if(difficult == 0){
+					if(snakeX<0 || snakeY<0 || snakeX>475 || snakeY>475 || collission(newHead,snake,score)){
+						p = 2;
+						console.log("GAME OVER");
+						clearInterval(interval);
+					}
+				}else if(difficult == 1){
+					if(snakeX<0 || snakeY<0 || snakeX>475 || snakeY>475){
+						p = 2;
+						console.log("GAME OVER");
+						clearInterval(interval);
+					}
+				}else if(difficult == 2){
+					if(0){
+						p = 2;
+						console.log("GAME OVER");
+						clearInterval(interval);
+					}
+				}
+		
+				//Add new the new snake's head
+				snake.unshift(newHead);
+			}
+
+			//Get keyboard inputs
+			function input(ev){
+		
+				//Get arrows inputs
+				if(ev.type ==  "keydown" && !ev.repeat){
+					if((ev.keyCode ==  37 || ev.keyCode ==  65) && d != "RIGHT" && p!= 2){
+						console.log("LEFT");
+						d = "LEFT";
+					}
+		
+					if((ev.keyCode ==  38 || ev.keyCode ==  87) && d != "DOWN" && p!= 2){
+						console.log("UP");
+						d = "UP";
+					}
+		
+					if((ev.keyCode ==  39 || ev.keyCode ==  68) && d!= "LEFT" && p!= 2){
+						console.log("RIGHT");
+						d = "RIGHT";
+					}
+		
+					if((ev.keyCode ==  40 || ev.keyCode ==  83) && d!= "UP" && p!= 2){
+						console.log("DOWN");
+						d = "DOWN";
+					}
+			
+					if(ev.keyCode == 80 && p == 0){
+						console.log("PAUSE");
+						p = 1;
+						clearInterval(interval);
+					}else if(ev.keyCode == 80 && p!= 2){
+						console.log("PLAY");
+						p = 0;
+						interval = setInterval(update , 1000/v);
+					}
+			
+				}
+
+			}
+
+		</script>
+		
+	</body>
+</html>
