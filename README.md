@@ -18,7 +18,7 @@
 </p>
 <hr>
 <h3 id="about" align="center">About</h3>
-<p align="center">I did this project when I was starting with the HTML canvas and I remade 3 old games, which is the first one</p>
+<p align="center">I did this project when I was starting with the HTML canvas and I remade 3 old games, this is the first one</p>
 <hr>
 <h3 id="author" align="center">Author</h3>
 <div align="center"><a href="https://github.com/MSMMD"><img width="150px" src="https://avatars.githubusercontent.com/u/66802964?v=4">
