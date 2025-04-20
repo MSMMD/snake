@@ -1,5 +1,5 @@
 <div align="center">
-  <a href="https://msmmd.github.io/snake"><img src="https://img.shields.io/static/v1?label=Play&message=site&color=yellow&style=for-the-badge"></a>
+  <a href="https://msmmd.github.io/snake"><img src="https://img.shields.io/static/v1?label=Snake&message=play&color=yellow&style=for-the-badge"></a>
   <img src="https://img.shields.io/github/watchers/MSMMD/snake?color=orange&label=Views&style=for-the-badge">
   <img src="https://img.shields.io/github/stars/MSMMD/snake?label=Stars&style=for-the-badge&color=fafd10">
   <img src="https://img.shields.io/github/forks/MSMMD/snake?color=white&label=Forks&style=for-the-badge">
