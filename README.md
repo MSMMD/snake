@@ -1,7 +1,7 @@
 <div align="center">
   <a href="https://msmmd.github.io/snake"><img src="https://img.shields.io/static/v1?label=Snake&message=play&color=yellow&style=for-the-badge"></a>
   <img src="https://img.shields.io/github/watchers/MSMMD/snake?color=orange&label=Views&style=for-the-badge">
-  <img src="https://img.shields.io/github/stars/MSMMD/snake?label=Stars&style=for-the-badge&color=fafd10">
+  <img src="https://img.shields.io/github/stars/MSMMD/snake?label=Stars&style=for-the-badge&color=fafd10&version=1">
   <img src="https://img.shields.io/github/forks/MSMMD/snake?color=white&label=Forks&style=for-the-badge">
   <a href="https://discord.com/users/714960683967447050"><img src="https://img.shields.io/static/v1?label=Discord&message=MsMmD&color=4402dd&style=for-the-badge&logo=discord&logoColor=white"></a>
   <img src="https://img.shields.io/github/license/MSMMD/snake?style=for-the-badge">
